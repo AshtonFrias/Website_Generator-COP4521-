@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<style>
+    h1 {text-align: center;}
+    h2 {text-align: center;}
+    h2 {font-size: 20px;}
+        h3 {text-align: center;}
+    h3 {font-size: 20px;}
+    .checkboxes input{
+  margin: 5px 10px 10px 10px;
+}
+</style>
+   <body>
+
+        <h1>Welcome to Recipe Finder!</h1>
+        <h3>Choose your tag below to get started</h3>
+
+                <form action = "{{ url_for('get_recipes') }}">
+        <h2><div class="checkboxes">
+        <input type="radio" name="recipe_tag" value="Chinese"/>Chinese
+        <input type="radio" name="recipe_tag" value="Italian"/>Italian<br>
+        <input type="radio" name="recipe_tag" value="Easy"/>Easy
+            <input type="radio" name="recipe_tag" value="Low Carb">Low Carb
+        <input type="radio" name="recipe_tag" value="Whole30"/>Whole30
+        </div>
+            <input type = "submit" value = "Submit" /></h2>
+      </form>
+
+   </body>
+</html>
