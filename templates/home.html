@@ -15,7 +15,7 @@
         <h1>Welcome to Recipe Finder!</h1>
         <h3>Choose your tag below to get started</h3>
 
-                <form action = "{{ url_for('get_recipes') }}">
+                <form action = "{{ url_for('get_recipes') }}" method="POST">
         <h2><div class="checkboxes">
         <input type="radio" name="recipe_tag" value="Chinese"/>Chinese
         <input type="radio" name="recipe_tag" value="Italian"/>Italian<br>

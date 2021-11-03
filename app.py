@@ -1,34 +1,67 @@
 from flask import Flask, render_template, request
 import sqlite3 as sql
-import smtplib
-import os
+import requests
+from bs4 import BeautifulSoup
+from recipe_scrapers import scrape_me
+import cchardet
 from email.message import EmailMessage
+import smtplib
 
 app = Flask(__name__)
 
-@app.route('/') #HOME PAGE
+@app.route('/') #HOME PAGE, user can enter their criteria here for recipes
 def home():
     return render_template('home.html')
     con.close()
 
 
-@app.route('/get_recipes', methods=['POST', 'GET'])  #ADD REVIEW
+@app.route('/get_recipes', methods=['POST', 'GET'])  #GET RECIPES, scrapes for recipes fitting the criteria and puts them in a database
 def get_recipes():
+    if request.method == 'POST':
 
-    if request.method == 'GET':
-        conn = sql.connect("recipeData.db")
-        conn.row_factory = sql.Row
-        cur = conn.cursor()
+        with sql.connect("recipeData.db") as con:   #clears previous data from the table
+            cur = con.cursor()
+            cur.execute("DELETE FROM recipes")
+
         try:
-            tag = request.args['recipe_tag']
-            cur.execute(f"select * from recipes where Tags='{tag}'")  # only gets the reviews for the Restaurant entered
+            tag = request.form['recipe_tag']    #gets the tags the user chose
+            print(tag)
         except:
-            cur.execute(f"select * from recipes")  # only gets the reviews for the Restaurant entered
+            tag = "Italian" #defaults to Italian if nothing was entered
 
+        try:
+            url = 'https://www.allrecipes.com/search/results/?search='+tag  #constructing the search URL, adding the user's desired criteria
+            print(url)
+            reqs = requests.get(url)
+            soup = BeautifulSoup(reqs.text, 'lxml')
 
-        revRows = cur.fetchall();
+            links = [link['href'] for link in soup.select('a[href*="https://www.allrecipes.com/recipe/"]')] #putting the links to recipes into a list
+            unique_links=set(links) #storing the list in a set so there are only unique links
 
-        return render_template("recipes.html", revRows=revRows)
+            with sql.connect("recipeData.db") as con:
+                cur = con.cursor()
+                i=0
+                for link in unique_links:
+                    if(i==10):  #cutting off results at 10 to try to cut down loading time
+                        break
+                    print(link)
+                    scraper = scrape_me(link)
+                    cur.execute("INSERT INTO recipes (RecipeName, URL, Tags) VALUES (?,?,"  #inserting data into table
+                            "?)", (scraper.title(), link, tag))
+                    i=i+1
+
+        except:
+            con.rollback()
+            print("Error in insert operation")
+
+        finally:
+            conn = sql.connect("recipeData.db")
+            conn.row_factory = sql.Row
+            cur = conn.cursor()
+            cur.execute(f"select * from recipes")
+            revRows = cur.fetchall();
+            return render_template("recipes.html", revRows=revRows)
+
 
 @app.route('/sendemail')
 def sendemail():
@@ -54,4 +87,4 @@ def submitemail():
         return render_template("result.html",msg = "Email was sent")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0');

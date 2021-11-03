@@ -1,11 +1,14 @@
 import sqlite3
 
-#CREATES THE DATABASE (1 table)
+
+#CREATES THE DATABASE (1 table called "recipes")
 conn = sqlite3.connect('recipeData.db')
 print ("Opened database successfully")
 
 conn.execute('CREATE TABLE recipes (RecipeName TEXT, URL TEXT, Tags TEXT)')
-#conn.execute("INSERT INTO recipes (RecipeName, URL, Tags) VALUES ('1', '2', '3'), ('3','2','1')")
+print("Recipes Table made successfully")
+
+#records_to_insert was the data I put in manually before the web scraper was implemented
 records_to_insert = [('Pork Dumplings', 'https://www.allrecipes.com/recipe/14759/pork-dumplings/', 'Chinese'),
                                  ('Char Siu (Chinese BBQ Pork)', 'https://www.allrecipes.com/recipe/257428/char-siu-chinese-barbeque-pork/', 'Chinese'),
                                  ('Italian Baked Meatballs', 'https://www.allrecipes.com/recipe/268249/italian-baked-meatballs/', 'Italian'),
@@ -26,9 +29,5 @@ records_to_insert = [('Pork Dumplings', 'https://www.allrecipes.com/recipe/14759
                                   'Whole30'),
                                  ('Guacamole',
                                   'https://www.allrecipes.com/recipe/14231/guacamole/', 'Whole30')]
-
-conn.executemany("INSERT INTO recipes (RecipeName, URL, Tags) VALUES (?,?,?)", records_to_insert)
-conn.commit()
-print ("Reviews Table created successfully")
 
 conn.close()
