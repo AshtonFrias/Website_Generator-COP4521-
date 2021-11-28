@@ -9,11 +9,14 @@ import smtplib
 
 app = Flask(__name__)
 
-@app.route('/') #HOME PAGE, user can enter their criteria here for recipes
-def home():
+@app.route('/')
+def mainpage():
+    return render_template('mainpage.html')
+
+@app.route('/recipe_home') #HOME PAGE, user can enter their criteria here for recipes
+def recipe_home():
     return render_template('home.html')
     con.close()
-
 
 @app.route('/get_recipes', methods=['POST', 'GET'])  #GET RECIPES, scrapes for recipes fitting the criteria and puts them in a database
 def get_recipes():
@@ -62,6 +65,62 @@ def get_recipes():
             revRows = cur.fetchall();
             return render_template("recipes.html", revRows=revRows)
 
+@app.route('/restaurant_home')
+def findrestaurant():
+    return render_template('findrestaurant.html')
+
+def removeSpaces(restName):
+    restName = restName[2:]
+    while(restName[1:] == " "):
+        restName = restName[1:]
+
+    restName = restName.replace(" ", "-")
+    restName = restName.replace("'", "s")
+    restName = restName.replace("&", "and")
+
+    return restName
+
+@app.route('/get_restaurant', methods=['POST', 'GET'])
+def get_restaurant():
+    if request.method == 'POST':
+        with sql.connect("recipeData.db") as con:   #clears previous data from the table
+            cur = con.cursor()
+            cur.execute("DELETE FROM restaurant")
+
+            city = request.form['city']
+            state = request.form['state']
+            tag = request.form['restaurant_tag']
+            city = city.replace(" ", "%20")
+            tag = tag.replace(" ", "%20")
+
+        try:
+            url = "https://www.yelp.com/search?find_desc=Restaurants&find_loc="+city+"%2C%20" + state+"&ns=1&cflt="+tag
+            reqs = requests.get(url)
+            soup = BeautifulSoup(reqs.content, 'lxml')
+
+            for item in soup.select('[class*=container]'):
+                if item.find('h4'):
+                    name = item.find('h4').get_text()
+                    name = name[3:]
+                    rating = soup.select('[aria-label*=rating]')[0]['aria-label']
+                    price = soup.select('[class*=priceRange]')[0].get_text()
+
+                    with sql.connect("recipeData.db") as con:
+                        cur = con.cursor()
+                        #cur.execute('CREATE TABLE resturant (RestName TEXT, URL TEXT, Rating TEXT, Price TEXT, Tag TEXT)')
+                        cur.execute("INSERT INTO restaurant (RestName, Rating, Price, Tag) VALUES (?,?,?,?)", (name, rating, price, tag))
+
+        except:
+            con.rollback()
+            print("Error in insert operation")
+
+        finally:
+            conn = sql.connect("recipeData.db")
+            conn.row_factory = sql.Row
+            cur = conn.cursor()
+            cur.execute(f"select * from restaurant")
+            revRows = cur.fetchall();
+            return render_template("restaurant.html", revRows=revRows, city = city, state = state)
 
 @app.route('/sendemail')
 def sendemail():
@@ -70,6 +129,13 @@ def sendemail():
 @app.route('/submitemail',methods = ['POST', 'GET'])
 def submitemail():
     if request.method == 'POST':
+        conn = sql.connect("recipeData.db")
+        cur = conn.cursor()
+        cur.execute(f"select * from recipes")
+        #revRows = cur.fetchall();
+        revRows = "This is a test"
+
+        print(revRows)
         email = request.form['Email']
         EMIAL_ADDRESS = "FoodWebsiteGenerator@gmail.com"
         EMIAL_PASSWORD = "cop452100"
@@ -78,7 +144,7 @@ def submitemail():
         msg['From'] = EMIAL_ADDRESS
         msg['Subject'] = "Your Recipe"
         msg['To'] = email
-        msg.set_content("This is a test")
+        msg.set_content(revRows)
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp: 
             smtp.login(EMIAL_ADDRESS,EMIAL_PASSWORD)

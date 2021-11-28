@@ -7,25 +7,27 @@
     h2 {text-align: center;}
     h2 {font-size: 20px;}
    </style>
-   <h3>Recipes</h3>
+   <h3>Resturants in {{ city }}, {{ state }}</h3>
 
    <p><table border = 1 align="center">
          <thead>
-            <th>Recipe Name</th>
-            <th>URL</th>
+            <th>Restaurant Name</th>
+            <th>Rating</th>
+            <th>Price</th>
             <th>Tags</th>
          </thead>
          {% for row in revRows %}
             <tr>
-               <td>{{row["RecipeName"]}}</td>
-               <td>{{row["URL"]}}</td>
-               <td>{{row["Tags"]}}</td>
+               <td>{{row["RestName"]}}</td>
+               <td>{{row["RATING"]}}</td>
+               <td>{{row["PRICE"]}}</td>
+               <td>{{row["Tag"]}}</td>
             </tr>
          {% endfor %}
 
       </table></p>
 
-      <h2><a href = "/">Return Home</a></h2>
+      <h2><a href = "/">Home</a></h2>
       <h2><a href = "/sendemail">Send Email</a></h2>
 
    </body>

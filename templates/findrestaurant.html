@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<style>
+    h1 {text-align: center;}
+    h2 {text-align: center;}
+    form {text-align: center;}
+    h2 {font-size: 20px;}
+        h3 {text-align: center;}
+    h3 {font-size: 20px;}
+    .checkboxes input{
+  margin: 5px 10px 10px 10px;
+}
+</style>
+   <body>
+
+        <h1>Find a Resturant!</h1>
+
+        <form action = "{{ url_for('get_restaurant') }}" method="POST">
+        
+        <label for="city">Enter City:</label><br>
+        <input type="text" id="city" name="city"><br>
+        <label for="state">Enter State:</label><br>
+        <input type="text" id="state" name="state">
+
+        <h2><div class="checkboxes">
+        <input type="radio" name="restaurant_tag" value="Fast Food"/>Chinese
+        <input type="radio" name="restaurant_tag" value="Italian"/>Italian<br>
+        <input type="radio" name="restaurant_tag" value="Greek"/>Greek
+            <input type="radio" name="restaurant_tag" value="Pizza">	Pizza
+        <input type="radio" name="restaurant_tag" value="Japanese"/>Japanese<br>
+        <input type="radio" name="restaurant_tag" value="Indian"/>Indian
+        <input type="radio" name="restaurant_tag" value="Latin American"/>Latin American
+        <input type="radio" name="restaurant_tag" value="Cuban"/>Cuban<br>
+        <input type="radio" name="restaurant_tag" value="Filipino"/>Filipino
+        <input type="radio" name="restaurant_tag" value="Steakhouses"/>	Steakhouses
+        </div>
+
+            <input type = "submit" value = "Submit" /></h2>
+      </form>
+
+   </body>
+</html>
