@@ -18,6 +18,19 @@ def recipe_home():
     return render_template('home.html')
     con.close()
 
+@app.route('/save_recipe/<id>') #Save recipes
+def save_recipe(id):
+    print(id)
+    with sql.connect("recipeData.db") as con:  # clears previous data from the table
+        cur = con.cursor()
+        cur.execute("INSERT INTO saved_recipes SELECT * FROM recipes WHERE RecipeName=?", (id,))
+
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute(f"select * from saved_recipes")
+        revRows = cur.fetchall();
+        return render_template("savedrecipes.html", revRows=revRows)
+
 @app.route('/get_recipes', methods=['POST', 'GET'])  #GET RECIPES, scrapes for recipes fitting the criteria and puts them in a database
 def get_recipes():
     if request.method == 'POST':
