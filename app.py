@@ -18,12 +18,34 @@ def recipe_home():
     return render_template('home.html')
     con.close()
 
+@app.route('/see_saved') #Save recipes
+def see_saved():
+    with sql.connect("recipeData.db") as con:  # clears previous data from the table
+        cur = con.cursor()
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute(f"select * from saved_recipes")
+        revRows = cur.fetchall();
+        return render_template("savedrecipes.html", revRows=revRows)
+
 @app.route('/save_recipe/<id>') #Save recipes
 def save_recipe(id):
     print(id)
     with sql.connect("recipeData.db") as con:  # clears previous data from the table
         cur = con.cursor()
         cur.execute("INSERT INTO saved_recipes SELECT * FROM recipes WHERE RecipeName=?", (id,))
+
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute(f"select * from saved_recipes")
+        revRows = cur.fetchall();
+        return render_template("savedrecipes.html", revRows=revRows)
+
+@app.route('/delete_recipe/<id>') #Save recipes
+def delete_recipe(id):
+    with sql.connect("recipeData.db") as con:  # clears previous data from the table
+        cur = con.cursor()
+        cur.execute("DELETE FROM saved_recipes WHERE RecipeName=?", (id,))
 
         con.row_factory = sql.Row
         cur = con.cursor()
