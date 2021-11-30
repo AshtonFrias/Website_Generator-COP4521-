@@ -47,7 +47,7 @@ def get_recipes():
                 for link in unique_links:
                     if(i==10):  #cutting off results at 10 to try to cut down loading time
                         break
-                    print(link)
+                    #print(link)
                     scraper = scrape_me(link)
                     cur.execute("INSERT INTO recipes (RecipeName, URL, Tags) VALUES (?,?,"  #inserting data into table
                             "?)", (scraper.title(), link, tag))
@@ -122,12 +122,16 @@ def get_restaurant():
             revRows = cur.fetchall();
             return render_template("restaurant.html", revRows=revRows, city = city, state = state)
 
-@app.route('/sendemail')
-def sendemail():
-    return render_template('sendemail.html') 
+@app.route('/sendrecipe')
+def sendrecipe():
+    return render_template('recipeemail.html') 
 
-@app.route('/submitemail',methods = ['POST', 'GET'])
-def submitemail():
+@app.route('/sendrestaurant')
+def sendrestaurant():
+    return render_template('restaurantemail.html') 
+
+@app.route('/recipeemail',methods = ['POST', 'GET'])
+def recipeemail():
     if request.method == 'POST':
         conn = sql.connect("recipeData.db")
         cur = conn.cursor()
@@ -136,6 +140,32 @@ def submitemail():
         revRows = "This is a test"
 
         print(revRows)
+        email = request.form['Email']
+        EMIAL_ADDRESS = "FoodWebsiteGenerator@gmail.com"
+        EMIAL_PASSWORD = "cop452100"
+
+        msg = EmailMessage()
+        msg['From'] = EMIAL_ADDRESS
+        msg['Subject'] = "Your Recipe"
+        msg['To'] = email
+        msg.set_content(revRows)
+
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp: 
+            smtp.login(EMIAL_ADDRESS,EMIAL_PASSWORD)
+            smtp.send_message(msg)
+
+        return render_template("result.html",msg = "Email was sent")
+
+@app.route('/restaurantemail',methods = ['POST', 'GET'])
+def restaurantemail():
+    if request.method == 'POST':
+        conn = sql.connect("recipeData.db")
+        cur = conn.cursor()
+        cur.execute(f"select * from restaurant")
+        revRows = cur.fetchall();
+
+        revRows = "This is a test"
+ 
         email = request.form['Email']
         EMIAL_ADDRESS = "FoodWebsiteGenerator@gmail.com"
         EMIAL_PASSWORD = "cop452100"
