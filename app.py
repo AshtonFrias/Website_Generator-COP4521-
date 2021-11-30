@@ -61,8 +61,10 @@ def get_recipes():
                     else:
                         time=str(hours)+" hrs "+str(min)+" mins"
 
-                    cur.execute("INSERT INTO recipes (RecipeName, Time, Yields, Ingredients, Instructions, URL) VALUES (?,?,"  #inserting data into table
-                            "?,?,?,?)", (scraper.title(), time, scraper.yields(), ingredients, scraper.instructions(), link))
+                    image=scraper.image()
+
+                    cur.execute("INSERT INTO recipes (Image, RecipeName, Time, Yields, Ingredients, Instructions, URL) VALUES (?,?,?,"  #inserting data into table
+                            "?,?,?,?)", (image,scraper.title(), time, scraper.yields(), ingredients, scraper.instructions(), link))
                     i=i+1
 
         except:
