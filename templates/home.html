@@ -15,13 +15,38 @@
         <h1>Welcome to Recipe Finder!</h1>
         <h3>Choose your tag below to get started</h3>
 
-                <form action = "{{ url_for('get_recipes') }}" method="POST">
+        <form action = "{{ url_for('get_recipes') }}" method="POST">
         <h2><div class="checkboxes">
         <input type="radio" name="recipe_tag" value="Chinese"/>Chinese
-        <input type="radio" name="recipe_tag" value="Italian"/>Italian<br>
-        <input type="radio" name="recipe_tag" value="Easy"/>Easy
+        <input type="radio" name="recipe_tag" value="Italian"/>Italian
+         <input type="radio" name="recipe_tag" value="German"/>German<br>
+        <input type="radio" name="recipe_tag" value="Indian"/>Indian
+                    <input type="radio" name="recipe_tag" value="Japanese"/>Japanese
+         <input type="radio" name="recipe_tag" value="Russian"/>Russian
+            <input type="radio" name="recipe_tag" value="Thai"/>Thai<br>
+                    <input type="radio" name="recipe_tag" value="Filipino"/>Filipino
+         <input type="radio" name="recipe_tag" value="Greek"/>Greek
+            <input type="radio" name="recipe_tag" value="Mexican"/>Mexican
+                    <input type="radio" name="recipe_tag" value="Spanish"/>Spanish<br>
             <input type="radio" name="recipe_tag" value="Low Carb">Low Carb
         <input type="radio" name="recipe_tag" value="Whole30"/>Whole30
+        <input type="radio" name="recipe_tag" value="Low Calorie"/>Low Calorie<br>
+ <input type="radio" name="recipe_tag" value="Low Cholesterol">Low Cholesterol
+        <input type="radio" name="recipe_tag" value="Low Sodium"/>Low Sodium
+     <input type="radio" name="recipe_tag" value="Diabetic">Diabetic
+        <input type="radio" name="recipe_tag" value="Keto"/>Keto<br>
+                 <input type="radio" name="recipe_tag" value="Gluten-Free">Gluten-Free
+             <input type="radio" name="recipe_tag" value="Low Fat">Low Fat
+        <input type="radio" name="recipe_tag" value="Mediterranean-Diet"/>Mediterranean-Diet<br>
+            <input type="radio" name="recipe_tag" value="Salad"/>Salad
+            <input type="radio" name="recipe_tag" value="Soup">Soup
+        <input type="radio" name="recipe_tag" value="Healthy"/>Healthy
+            <input type="radio" name="recipe_tag" value="Easy"/>Easy
+        <input type="radio" name="recipe_tag" value="Quick"/>Quick<br>
+            <input type="radio" name="recipe_tag" value="Breakfast"/>Breakfast
+            <input type="radio" name="recipe_tag" value="Appetizer"/>Appetizer
+        <input type="radio" name="recipe_tag" value="Dinner"/>Dinner
+        <input type="radio" name="recipe_tag" value="Dessert"/>Dessert
         </div>
             <input type = "submit" value = "Submit" /></h2>
       </form>

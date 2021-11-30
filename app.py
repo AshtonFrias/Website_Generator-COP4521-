@@ -28,13 +28,11 @@ def get_recipes():
 
         try:
             tag = request.form['recipe_tag']    #gets the tags the user chose
-            print(tag)
         except:
             tag = "Italian" #defaults to Italian if nothing was entered
 
         try:
             url = 'https://www.allrecipes.com/search/results/?search='+tag  #constructing the search URL, adding the user's desired criteria
-            print(url)
             reqs = requests.get(url)
             soup = BeautifulSoup(reqs.text, 'lxml')
 
@@ -47,10 +45,24 @@ def get_recipes():
                 for link in unique_links:
                     if(i==10):  #cutting off results at 10 to try to cut down loading time
                         break
-                    #print(link)
+
                     scraper = scrape_me(link)
-                    cur.execute("INSERT INTO recipes (RecipeName, URL, Tags) VALUES (?,?,"  #inserting data into table
-                            "?)", (scraper.title(), link, tag))
+                    ingredients=(str)(scraper.ingredients())    #turning the ingredients list into a string so it can be inserted
+
+                    x=(int)(scraper.total_time())   #converting minutes to h:m format
+                    hours=x//60
+                    min=x%60
+                    if(hours==0 and min==0):    #if no data on the recipe time is available, N/A is saved to the database
+                        time="N/A"
+                    elif(hours==0):
+                        time=str(min)+" mins"
+                    elif(min==0):
+                        time=str(hours)+" hrs"
+                    else:
+                        time=str(hours)+" hrs "+str(min)+" mins"
+
+                    cur.execute("INSERT INTO recipes (RecipeName, Time, Yields, Ingredients, Instructions, URL) VALUES (?,?,"  #inserting data into table
+                            "?,?,?,?)", (scraper.title(), time, scraper.yields(), ingredients, scraper.instructions(), link))
                     i=i+1
 
         except:

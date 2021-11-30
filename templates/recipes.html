@@ -12,14 +12,20 @@
    <p><table border = 1 align="center">
          <thead>
             <th>Recipe Name</th>
+            <th>Time</th>
+            <th>Yields</th>
+            <th>Ingredients</th>
+            <th>Instructions</th>
             <th>URL</th>
-            <th>Tags</th>
          </thead>
          {% for row in revRows %}
             <tr>
                <td>{{row["RecipeName"]}}</td>
+               <td>{{row["Time"]}}</td>
+               <td>{{row["Yields"]}}</td>
+               <td>{{row["Ingredients"]}}</td>
+               <td>{{row["Instructions"]}}</td>
                <td>{{row["URL"]}}</td>
-               <td>{{row["Tags"]}}</td>
             </tr>
          {% endfor %}
 
