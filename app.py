@@ -30,16 +30,16 @@ def see_saved():
 
 @app.route('/save_recipe/<id>') #Save recipes
 def save_recipe(id):
-    print(id)
     with sql.connect("recipeData.db") as con:  # clears previous data from the table
         cur = con.cursor()
         cur.execute("INSERT INTO saved_recipes SELECT * FROM recipes WHERE RecipeName=?", (id,))
 
-        con.row_factory = sql.Row
-        cur = con.cursor()
-        cur.execute(f"select * from saved_recipes")
+        conn = sql.connect("recipeData.db")
+        conn.row_factory = sql.Row
+        cur = conn.cursor()
+        cur.execute(f"select * from recipes")
         revRows = cur.fetchall();
-        return render_template("savedrecipes.html", revRows=revRows)
+        return render_template("recipes.html", revRows=revRows)
 
 @app.route('/delete_recipe/<id>') #Save recipes
 def delete_recipe(id):
@@ -63,11 +63,34 @@ def get_recipes():
 
         try:
             tag = request.form['recipe_tag']    #gets the tags the user chose
+            tag = tag.replace(" ", "+")
+            inc_ingr=request.form['inc_ingr']
+            inc_ingr = inc_ingr.replace(" ", "+")
+            exc_ingr=request.form['exc_ingr']
+            exc_ingr = exc_ingr.replace(" ", "+")
+
         except:
-            tag = "Italian" #defaults to Italian if nothing was entered
+            tag = "NULL" #defaults to Italian if nothing was entered
+            inc_ingr = request.form['inc_ingr']
+            inc_ingr = inc_ingr.replace(" ", "+")
+            exc_ingr = request.form['exc_ingr']
+            exc_ingr = exc_ingr.replace(" ", "+")
 
         try:
-            url = 'https://www.allrecipes.com/search/results/?search='+tag  #constructing the search URL, adding the user's desired criteria
+            if(tag!="NULL" and inc_ingr!="NULL" and exc_ingr=="NULL"):
+                url = 'https://www.allrecipes.com/search/results/?IngIncl='+inc_ingr+'&search='+tag  #constructing the search URL, adding the user's desired criteria
+            elif (tag == "NULL" and inc_ingr != "NULL" and exc_ingr == "NULL"):
+                url = 'https://www.allrecipes.com/search/results/?IngIncl=' + inc_ingr  # constructing the search URL, adding the user's desired criteria
+            elif (tag!="NULL" and inc_ingr == "NULL" and exc_ingr != "NULL"):
+                url = 'https://www.allrecipes.com/search/results/?IngExcl='+exc_ingr+'&search='+tag  #constructing the search URL, adding the user's desired criteria
+            elif (tag == "NULL" and inc_ingr == "NULL" and exc_ingr != "NULL"):
+                url = 'https://www.allrecipes.com/search/results/?IngExcl=' + exc_ingr  # constructing the search URL, adding the user's desired criteria
+            elif (tag!="NULL" and inc_ingr != "NULL" and exc_ingr != "NULL"):
+                url = 'https://www.allrecipes.com/search/results/?IngExcl='+exc_ingr+'&IngIncl='+inc_ingr+'&search='+tag  #constructing the search URL, adding the user's desired criteria
+            elif (tag == "NULL" and inc_ingr != "NULL" and exc_ingr != "NULL"):
+                url = 'https://www.allrecipes.com/search/results/?IngExcl=' + exc_ingr + '&IngIncl=' + inc_ingr  # constructing the search URL, adding the user's desired criteria
+            else:
+                url = 'https://www.allrecipes.com/search/results/?search='+tag  #constructing the search URL, adding the user's desired criteria
             reqs = requests.get(url)
             soup = BeautifulSoup(reqs.text, 'lxml')
 
@@ -113,6 +136,13 @@ def get_recipes():
             cur.execute(f"select * from recipes")
             revRows = cur.fetchall();
             return render_template("recipes.html", revRows=revRows)
+    if request.method == 'GET':
+        conn = sql.connect("recipeData.db")
+        conn.row_factory = sql.Row
+        cur = conn.cursor()
+        cur.execute(f"select * from recipes")
+        revRows = cur.fetchall();
+        return render_template("recipes.html", revRows=revRows)
 
 @app.route('/restaurant_home')
 def findrestaurant():
