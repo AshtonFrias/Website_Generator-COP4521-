@@ -202,7 +202,7 @@ def get_restaurant():
                     with sql.connect("recipeData.db") as con:
                         cur = con.cursor()
                         #cur.execute('CREATE TABLE resturant (RestName TEXT, URL TEXT, Rating TEXT, Price TEXT, Tag TEXT)')
-                        cur.execute("INSERT INTO restaurant (RestName, Rating, Price, Tag) VALUES (?,?,?,?)", (name, rating, price, tag))
+                        cur.execute("INSERT INTO restaurant (RestName, Rating, Price) VALUES (?,?,?)", (name, rating, price))
 
         except:
             con.rollback()
@@ -214,6 +214,7 @@ def get_restaurant():
             cur = conn.cursor()
             cur.execute(f"select * from restaurant")
             revRows = cur.fetchall();
+            state = state.replace("%20", " ")
             return render_template("restaurant.html", revRows=revRows, city = city, state = state)
 
 @app.route('/sendrecipe')
@@ -224,25 +225,45 @@ def sendrecipe():
 def sendrestaurant():
     return render_template('restaurantemail.html') 
 
+def recMessage():
+        conn = sql.connect("recipeData.db")
+        cur = conn.cursor()
+        cur.execute(f"select * from saved_recipes")
+        revRows = cur.fetchall();
+
+        sendString = ""
+        for idx1, x in enumerate(revRows):
+                for idx2, y in enumerate(x):
+                    if idx2 == 0:
+                        print()    
+                    if idx2 == 1:
+                        sendString += str(idx1 + 1) + ".) " + str(y) + "\n"
+                    if idx2 == 2:
+                        sendString += "Time to Make: " + str(y) + '\n'
+                    if idx2 == 3:
+                        sendString += "Servings: " + str(y) + '\n'
+                    if idx2 == 4:
+                        sendString += "Ingredients: " + str(y) + '\n'
+                    if idx2 == 5:
+                        sendString += "Instructions: " + str(y) + '\n'
+                    if idx2 == 6:
+                        sendString += "URL: " + str(y) + '\n' + "-------------------------------\n\n" 
+        return sendString
+
+
 @app.route('/recipeemail',methods = ['POST', 'GET'])
 def recipeemail():
     if request.method == 'POST':
-        conn = sql.connect("recipeData.db")
-        cur = conn.cursor()
-        cur.execute(f"select * from recipes")
-        #revRows = cur.fetchall();
-        revRows = "This is a test"
-
-        print(revRows)
         email = request.form['Email']
         EMIAL_ADDRESS = "FoodWebsiteGenerator@gmail.com"
-        EMIAL_PASSWORD = "cop452100"
+        EMIAL_PASSWORD = "foodP@ssword123"
+        s = recMessage()
 
         msg = EmailMessage()
         msg['From'] = EMIAL_ADDRESS
         msg['Subject'] = "Your Recipe"
         msg['To'] = email
-        msg.set_content(revRows)
+        msg.set_content(s)
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp: 
             smtp.login(EMIAL_ADDRESS,EMIAL_PASSWORD)
@@ -250,31 +271,44 @@ def recipeemail():
 
         return render_template("result.html",msg = "Email was sent")
 
-@app.route('/restaurantemail',methods = ['POST', 'GET'])
-def restaurantemail():
-    if request.method == 'POST':
+def restMessage():
         conn = sql.connect("recipeData.db")
         cur = conn.cursor()
         cur.execute(f"select * from restaurant")
         revRows = cur.fetchall();
+        sendString = ""
+        for idx1, x in enumerate(revRows):
+                for idx2, y in enumerate(x):
+                    if idx2 == 0:
+                        sendString += str(idx1 + 1) + ".) " + str(y) + "\n"
+                    elif idx2 == 1:
+                        sendString += '    ' + str(y) + '\n'
+                    else:
+                        sendString += '    ' + "Price: " + str(y) + '\n'  + "-------------------------------\n" 
+        return sendString
 
-        revRows = "This is a test"
- 
+@app.route('/restaurantemail',methods = ['POST', 'GET'])
+def restaurantemail():
+    if request.method == 'POST':
+        
         email = request.form['Email']
         EMIAL_ADDRESS = "FoodWebsiteGenerator@gmail.com"
-        EMIAL_PASSWORD = "cop452100"
+        EMIAL_PASSWORD = "foodP@ssword123"
 
+        s = restMessage()
+        message = "Hello my friend"
         msg = EmailMessage()
         msg['From'] = EMIAL_ADDRESS
-        msg['Subject'] = "Your Recipe"
+        msg['Subject'] = "Restaurants Near You!!!"
         msg['To'] = email
-        msg.set_content(revRows)
+        msg.set_content(s)
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp: 
             smtp.login(EMIAL_ADDRESS,EMIAL_PASSWORD)
             smtp.send_message(msg)
 
         return render_template("result.html",msg = "Email was sent")
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0');
