@@ -18,8 +18,8 @@
 
 **Other Resources:** We used our scrapers on Yelp (https://www.yelp.com/) to find restaurants and AllRecipes (https://www.allrecipes.com/) to find recipes. All images of recipes are from AllRecipes.
 
-**Seperation of Work:** 
-- Jordan Locke: Created the search for recipes page, recipe results page, save/delete feature for the recipes, table to hold the recipe results, table to hold the saved recipes, and the initial setup.
-- Ashton Frias: Created the email feature, search for restaurants page, table to hold the restaurant results, and restaurant results page. 
-- Colin Houde: 
+**Separation of Work:** 
+- Jordan Locke: Created the search for recipes page, recipe results page, save/delete feature for the recipes, table to hold the recipe results, table to hold the saved recipes, and the initial setup. Also met multiple times with the group throughout the semester.
+- Ashton Frias: Created the email feature, search for restaurants page, table to hold the restaurant results, and restaurant results page. Also met multiple times with the group throughout the semester.
+- Colin Houde: Improved the UI for all of the web pages and met multiple times with the group throughout the semester.
 - Addison Nugent: 
