@@ -66,10 +66,7 @@ input::-moz-focus-inner {
 }
 
 input, select, textarea {
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	-ms-appearance: none;
-	appearance: none;
+
 }
 
 /* Basic */
@@ -2093,10 +2090,7 @@ input, select, textarea {
 	input[type="button"],
 	button,
 	.button {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
+
 		-moz-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
 		-webkit-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -2325,10 +2319,7 @@ input, select, textarea {
 	input[type="url"],
 	select,
 	textarea {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
+
 		background-color: transparent;
 		border-radius: 4px;
 		border: none;
@@ -2385,10 +2376,7 @@ input, select, textarea {
 
 	input[type="checkbox"],
 	input[type="radio"] {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
+
 		display: block;
 		float: left;
 		margin-right: -2rem;
@@ -2399,11 +2387,7 @@ input, select, textarea {
 
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
-			text-decoration: none;
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
+
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1rem;
@@ -7083,11 +7067,6 @@ input, select, textarea {
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		pointer-events: none;
-		-moz-user-select: none;
-		-webkit-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
 		-moz-transition: opacity 0.5s ease, visibility 0.5s, z-index 0.5s;
 		-webkit-transition: opacity 0.5s ease, visibility 0.5s, z-index 0.5s;
 		-ms-transition: opacity 0.5s ease, visibility 0.5s, z-index 0.5s;
