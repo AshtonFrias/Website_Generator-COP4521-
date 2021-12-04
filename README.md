@@ -8,6 +8,14 @@
 **Repository Link:** https://github.com/AshtonFrias/Website_Generator-COP4521-
 *Note: Invites have been sent to both kuhnle@cs.fsu.edu and barao@cs.fsu.edu from the GitHub ID AshtonFrias
 
+**Necessary additional python package (recipie_scrapers) to install on pyton2.x: 
+
+pip install recipe-scrapers
+
+**or for python3.x:
+
+pip3 install recipe-scrapers
+
 **Description of the problem we are trying to solve:** Our website uses web scrapers to give the user the ability to browse local restaurants as well as find recipes that match their chosen criteria all in one place. The criteria includes cuisine (Chinese, Mexican, etc.), diet (Vegetarian, Keto, etc.), difficulty, meal type (Appetizer, Dinner, etc.), nutrition and so on. For searching for recipes, the user also has the option to input specific ingredients (such as onions, broccoli, chicken, etc.) that they want and don’t want in the results. The user can add/remove recipes to/from another database. They will also have the option to send the list of saved recipes via email, as well as the list of restaurant results via email.
 
 **Changes to the original plan:** Originally, we were going to pull the top 10 or so search results then give the user an option to refresh the page for more. For some reason, Beautiful Soup 4 can only pull a certain number of URLS (it varies how many but usually 20-30 URLS come back) so we are unable to continually refresh the results like we thought we could do. Instead, we will display the top 10 or so results and the user will have the option to do a new search if they want different results. We also were going to allow the user to select multiple tags (aka criteria) but we limited this to only choosing one selection per category to limit complexity. Also, if the user does not put in any criteria, we do not create  a random combination of criteria for them.
