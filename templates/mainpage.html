@@ -1,10 +1,110 @@
 <!doctype html>
 <html>
-   <body>
+<head>
+    <title>Main Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="homepage is-preload">
+		<div id="page-wrapper">
 
-        <h1>Please Choose one of the Following</h1>
-        <h2><a href = "/restaurant_home">Find a Restaurant </a></h2>
-        <h2><a href = "/recipe_home">Find Recipes</a></h2>
-        <h2><a href = "/see_saved">See Saved Recipes</a></h2>
-   </body>
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header" class="container">
+
+						<!-- Logo -->
+							<h1 id="logo"><a href="{{ url_for('mainpage') }}">Recipie Generator</a></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+
+									<li><a href="{{ url_for('findrestaurant') }}">Find a Restaurant!</a></li>
+									<li class="break"><a href="{{ url_for('recipe_home') }}">Find a new recipie!</a></li>
+
+								</ul>
+							</nav>
+
+					</div>
+
+					<!-- Hero -->
+						<section id="hero" class="container">
+							<header>
+								<h2>Recipe Website Python
+								<br> (COP 4521 - Fall 2021)
+								</h2>
+							</header>
+							<p>Designed and built by Addison Nugent, Ashton Frias, Jordan Locke, and Colin Houde</p>
+
+						</section>
+
+				</div>
+
+			<!-- Features 1 -->
+				<div class="wrapper">
+					<div class="container">
+						<div class="row">
+							<section class="col-6 col-12-narrower feature">
+								<div class="image-wrapper first">
+									<a class="image featured first"><img src="{{url_for('static', filename='75-of-families-eating-out-in-restaurants-more-regularly_wrbm_large.jpeg')}}" alt="" /></a>
+								</div>
+								<header>
+									<h2>Looking to eat out?</h2>
+								</header>
+								<p>Try our custom search tool to find your next favorite restaurant to eat at near you!</p>
+								<ul class="actions">
+									<li><a href="{{ url_for('findrestaurant') }}" class="button">Search for Restaurant</a></li>
+								</ul>
+							</section>
+							<section class="col-6 col-12-narrower feature">
+								<div class="image-wrapper">
+									<a class="image featured"><img src="{{url_for('static', filename='cooking-at-home.jpeg')}}" alt="" /></a>
+								</div>
+								<header>
+									<h2>Want to try something new?</h2>
+								</header>
+								<p>With our recipie generator, your next favorite meal to cook at home is just a few clicks away!</p>
+								<ul class="actions">
+									<li><a href="{{ url_for('recipe_home') }}" class="button">Look for a new recipie!</a></li>
+								</ul>
+							</section>
+						</div>
+					</div>
+				</div>
+
+			<!-- Promo -->
+				<div id="promo-wrapper">
+					<section id="promo">
+						<h2>Already have a saved list of recipies?</h2>
+						<a href="{{ url_for('see_saved') }}" class="button">See saved list</a>
+					</section>
+				</div>
+
+			<!-- Features 2 -->
+
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<div class="container">
+							<li><center>Team Members: Addison Nugent (GitHub ID: sydsyd-nugs), Ashton Frias (GitHub ID: AshtonFrias), Jordan Locke (GitHub ID: jll19gGH),<br> and Colin Houde (GitHub ID: ColinHoude)</center> </li>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="static/js/jquery.min.js"></script>
+			<script src="static/js/jquery.dropotron.min.js"></script>
+			<script src="static/js/browser.min.js"></script>
+			<script src="static/js/breakpoints.min.js"></script>
+			<script src="static/js/util.js"></script>
+			<script src="static/js/main.js"></script>
+
+	</body>
+<!--   <body>-->
+
+<!--        <h1>Please Choose one of the Following</h1>-->
+<!--        <h2><a href = "/restaurant_home">Find a Restaurant </a></h2>-->
+<!--        <h2><a href = "/recipe_home">Find Recipes</a></h2>-->
+<!--        <h2><a href = "/see_saved">See Saved Recipes</a></h2>-->
+<!--   </body>-->
 </html>

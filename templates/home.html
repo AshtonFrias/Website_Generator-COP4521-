@@ -1,206 +1,413 @@
 <!doctype html>
 <html>
-<style>
-    h1 {text-align: center;}
-    h2 {text-align: center;}
-    h2 {font-size: 20px;}
-        h3 {text-align: center;}
-    h3 {font-size: 20px;}
-    .checkboxes input{
-  margin: 5px 10px 10px 10px;
-}
-</style>
-   <body>
+<head>
+		<title>Restaurant Search</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='FindRest/css/main.css') }}">
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='FindRest/css/main.css') }}"></noscript>
+</head>
 
-        <h1>Welcome to Recipe Finder!</h1>
-        <h3>Choose your tag below to get started</h3>
+<body>
 
-        <form action = "{{ url_for('get_recipes') }}" method="POST">
-        <h2><div class="checkboxes">
-        <input type="radio" name="recipe_tag" value="Chinese"/>Chinese
-        <input type="radio" name="recipe_tag" value="Italian"/>Italian
-         <input type="radio" name="recipe_tag" value="German"/>German<br>
-        <input type="radio" name="recipe_tag" value="Indian"/>Indian
-                    <input type="radio" name="recipe_tag" value="Japanese"/>Japanese
-         <input type="radio" name="recipe_tag" value="Russian"/>Russian
-            <input type="radio" name="recipe_tag" value="Thai"/>Thai<br>
-                    <input type="radio" name="recipe_tag" value="Filipino"/>Filipino
-         <input type="radio" name="recipe_tag" value="Greek"/>Greek
-            <input type="radio" name="recipe_tag" value="Mexican"/>Mexican
-                    <input type="radio" name="recipe_tag" value="Spanish"/>Spanish<br>
-            <input type="radio" name="recipe_tag" value="Low Carb">Low Carb
-        <input type="radio" name="recipe_tag" value="Whole30"/>Whole30
-        <input type="radio" name="recipe_tag" value="Low Calorie"/>Low Calorie<br>
- <input type="radio" name="recipe_tag" value="Low Cholesterol">Low Cholesterol
-        <input type="radio" name="recipe_tag" value="Low Sodium"/>Low Sodium
-     <input type="radio" name="recipe_tag" value="Diabetic">Diabetic
-        <input type="radio" name="recipe_tag" value="Keto"/>Keto<br>
-                 <input type="radio" name="recipe_tag" value="Gluten-Free">Gluten-Free
-             <input type="radio" name="recipe_tag" value="Low Fat">Low Fat
-        <input type="radio" name="recipe_tag" value="Mediterranean-Diet"/>Mediterranean-Diet<br>
-            <input type="radio" name="recipe_tag" value="Salad"/>Salad
-            <input type="radio" name="recipe_tag" value="Soup">Soup
-        <input type="radio" name="recipe_tag" value="Healthy"/>Healthy
-            <input type="radio" name="recipe_tag" value="Easy"/>Easy
-        <input type="radio" name="recipe_tag" value="Quick"/>Quick<br>
-            <input type="radio" name="recipe_tag" value="Breakfast"/>Breakfast
-            <input type="radio" name="recipe_tag" value="Appetizer"/>Appetizer
-        <input type="radio" name="recipe_tag" value="Dinner"/>Dinner
-        <input type="radio" name="recipe_tag" value="Dessert"/>Dessert
-        </div>
-<br>
-            <label for="inc_ingr">Or select an ingredient you want:</label>
-  <select name="inc_ingr" id="inc_ingr">
-    <option name="inc_ingr" value="NULL">-- Select an option --</option>
-    <option name="inc_ingr" value="Beef">Beef</option>
-    <option name="inc_ingr" value="Chicken">Chicken</option>
-              <option name="inc_ingr" value="Turkey">Turkey</option>
-              <option name="inc_ingr" value="Sausage">Sausage</option>
-        <option name="inc_ingr" value="Venison">Venison</option>
-    <option name="inc_ingr" value="Elk">Elk</option>
-    <option name="inc_ingr" value="Duck">Duck</option>
-    <option name="inc_ingr" value="Rabbit">Rabbit</option>
-         <option name="inc_ingr" value="Lamb">Lamb</option>
-               <option name="inc_ingr" value="Pork">Pork</option>
-                    <option name="inc_ingr" value="Shellfish">Shellfish</option>
-          <option name="inc_ingr" value="Beans">Beans</option>
-      <option name="inc_ingr" value="Chocolate">Chocolate</option>
-          <option name="inc_ingr" value="Dairy">Dairy</option>
-      <option name="inc_ingr" value="Cheese">Cheese</option>
-    <option name="inc_ingr" value="Butter">Butter</option>
-    <option name="inc_ingr" value="Milk">Milk</option>
-      <option name="inc_ingr" value="Sour Cream">Sour Cream</option>
-    <option name="inc_ingr" value="Flour">Flour</option>
-      <option name="inc_ingr" value="Vegetable">Vegetable</option>
-      <option name="inc_ingr" value="Artichoke">Artichoke</option>
-          <option name="inc_ingr" value="Asparagus">Asparagus</option>
-      <option name="inc_ingr" value="Beet">Beet</option>
-    <option name="inc_ingr" value="Bell Pepper">Bell Pepper</option>
-    <option name="inc_ingr" value="Bok Choy">Bok Choy</option>
-      <option name="inc_ingr" value="Broccoli">Broccoli</option>
-         <option name="inc_ingr" value="Brussels Sprouts">Brussels Sprouts</option>
-      <option name="inc_ingr" value="Mushroom">Mushroom</option>
-          <option name="inc_ingr" value="Green Bean">Green Bean</option>
-      <option name="inc_ingr" value="Corn">Corn</option>
-    <option name="inc_ingr" value="Eggplant">Eggplant</option>
-    <option name="inc_ingr" value="Squash">Squash</option>
-      <option name="inc_ingr" value="Carrot">Carrot</option>
-    <option name="inc_ingr" value="Cauliflower">Cauliflower</option>
-            <option name="inc_ingr" value="Sweet Potato">Sweet Potato</option>
-    <option name="inc_ingr" value="Potato">Potato</option>
-    <option name="inc_ingr" value="Fruit">Fruit</option>
-    <option name="inc_ingr" value="Apple">Apple</option>
-          <option name="inc_ingr" value="Apricot">Apricot</option>
-    <option name="inc_ingr" value="Avocado">Avocado</option>
-    <option name="inc_ingr" value="Banana">Banana</option>
-    <option name="inc_ingr" value="Berry">Berry</option>
-          <option name="inc_ingr" value="Blueberry">Blueberry</option>
-    <option name="inc_ingr" value="Cherry">Cherry</option>
-    <option name="inc_ingr" value="Coconut">Coconut</option>
-    <option name="inc_ingr" value="Mango">Mango</option>
-      <option name="inc_ingr" value="Pineapple">Pineapple</option>
-    <option name="inc_ingr" value="Basil">Basil</option>
-    <option name="inc_ingr" value="Bay Leaves">Bay Leaves</option>
-          <option name="inc_ingr" value="Chives">Chives</option>
-    <option name="inc_ingr" value="Cilantro">Cilantro</option>
-    <option name="inc_ingr" value="Dill">Dill</option>
-          <option name="inc_ingr" value="Mint">Mint</option>
-    <option name="inc_ingr" value="Oregano">Oregano</option>
-    <option name="inc_ingr" value="Parsley">Parsley</option>
-    <option name="inc_ingr" value="Rosemary">Rosemary</option>
-      <option name="inc_ingr" value="Sage">Sage</option>
-    <option name="inc_ingr" value="Thyme">Thyme</option>
-    <option name="inc_ingr" value="Mushrooms">Mushrooms</option>
-    <option name="inc_ingr" value="Nuts">Nuts</option>
-                <option name="inc_ingr" value="Peanuts">Peanuts</option>
-    <option name="inc_ingr" value="Peanut Butter">Peanut Butter</option>
-    <option name="inc_ingr" value="Pecans">Pecans</option>
-    <option name="inc_ingr" value="Almonds">Almonds</option>
-      <option name="inc_ingr" value="Flax Seeds">Flax Seeds</option>
-    <option name="inc_ingr" value="Thyme">Thyme</option>
-  </select>
-            <br>
-            <br>
+   <body class="is-preload">
 
-                        <label for="exc_ingr">Or select an ingredient you don't want:</label>
-  <select name="exc_ingr" id="exc_ingr">
-    <option name="exc_ingr" value="NULL">-- Select an option --</option>
-    <option name="exc_ingr" value="Beef">Beef</option>
-    <option name="exc_ingr" value="Chicken">Chicken</option>
-              <option name="exc_ingr" value="Turkey">Turkey</option>
-              <option name="exc_ingr" value="Sausage">Sausage</option>
-        <option name="exc_ingr" value="Venison">Venison</option>
-    <option name="exc_ingr" value="Elk">Elk</option>
-    <option name="exc_ingr" value="Duck">Duck</option>
-    <option name="exc_ingr" value="Rabbit">Rabbit</option>
-         <option name="exc_ingr" value="Lamb">Lamb</option>
-               <option name="exc_ingr" value="Pork">Pork</option>
-                    <option name="exc_ingr" value="Shellfish">Shellfish</option>
-          <option name="exc_ingr" value="Beans">Beans</option>
-      <option name="exc_ingr" value="Chocolate">Chocolate</option>
-          <option name="exc_ingr" value="Dairy">Dairy</option>
-      <option name="exc_ingr" value="Cheese">Cheese</option>
-    <option name="exc_ingr" value="Butter">Butter</option>
-    <option name="exc_ingr" value="Milk">Milk</option>
-      <option name="exc_ingr" value="Sour Cream">Sour Cream</option>
-    <option name="exc_ingr" value="Flour">Flour</option>
-      <option name="exc_ingr" value="Vegetable">Vegetable</option>
-      <option name="exc_ingr" value="Artichoke">Artichoke</option>
-          <option name="exc_ingr" value="Asparagus">Asparagus</option>
-      <option name="exc_ingr" value="Beet">Beet</option>
-    <option name="exc_ingr" value="Bell Pepper">Bell Pepper</option>
-    <option name="exc_ingr" value="Bok Choy">Bok Choy</option>
-      <option name="exc_ingr" value="Broccoli">Broccoli</option>
-         <option name="exc_ingr" value="Brussels Sprouts">Brussels Sprouts</option>
-      <option name="exc_ingr" value="Mushroom">Mushroom</option>
-          <option name="exc_ingr" value="Green Bean">Green Bean</option>
-      <option name="exc_ingr" value="Corn">Corn</option>
-    <option name="exc_ingr" value="Eggplant">Eggplant</option>
-    <option name="exc_ingr" value="Squash">Squash</option>
-      <option name="exc_ingr" value="Carrot">Carrot</option>
-    <option name="exc_ingr" value="Cauliflower">Cauliflower</option>
-            <option name="exc_ingr" value="Sweet Potato">Sweet Potato</option>
-    <option name="exc_ingr" value="Potato">Potato</option>
-    <option name="exc_ingr" value="Fruit">Fruit</option>
-    <option name="exc_ingr" value="Apple">Apple</option>
-          <option name="exc_ingr" value="Apricot">Apricot</option>
-    <option name="exc_ingr" value="Avocado">Avocado</option>
-    <option name="exc_ingr" value="Banana">Banana</option>
-    <option name="exc_ingr" value="Berry">Berry</option>
-          <option name="exc_ingr" value="Blueberry">Blueberry</option>
-    <option name="exc_ingr" value="Cherry">Cherry</option>
-    <option name="exc_ingr" value="Coconut">Coconut</option>
-    <option name="exc_ingr" value="Mango">Mango</option>
-      <option name="exc_ingr" value="Pineapple">Pineapple</option>
-    <option name="exc_ingr" value="Basil">Basil</option>
-    <option name="exc_ingr" value="Bay Leaves">Bay Leaves</option>
-          <option name="exc_ingr" value="Chives">Chives</option>
-    <option name="exc_ingr" value="Cilantro">Cilantro</option>
-    <option name="exc_ingr" value="Dill">Dill</option>
-          <option name="exc_ingr" value="Mint">Mint</option>
-    <option name="exc_ingr" value="Oregano">Oregano</option>
-    <option name="exc_ingr" value="Parsley">Parsley</option>
-    <option name="exc_ingr" value="Rosemary">Rosemary</option>
-      <option name="exc_ingr" value="Sage">Sage</option>
-    <option name="exc_ingr" value="Thyme">Thyme</option>
-    <option name="exc_ingr" value="Mushrooms">Mushrooms</option>
-    <option name="exc_ingr" value="Nuts">Nuts</option>
-                <option name="exc_ingr" value="Peanuts">Peanuts</option>
-    <option name="exc_ingr" value="Peanut Butter">Peanut Butter</option>
-    <option name="exc_ingr" value="Pecans">Pecans</option>
-    <option name="exc_ingr" value="Almonds">Almonds</option>
-      <option name="exc_ingr" value="Flax Seeds">Flax Seeds</option>
-    <option name="exc_ingr" value="Thyme">Thyme</option>
-  </select>
+		<!-- Wrapper -->
+			<div id="wrapper" class="divided">
 
-            <br>
-            <br>
-            <input type = "submit" value = "Submit" /></h2>
-      </form>
+				<!-- One -->
+					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+						<div class="content">
+							<h1>Welcome to Recipe Finder!</h1>
+                            <h3>Choose your tag below to get started</h3>
+                                <form action = "{{ url_for('get_recipes') }}" method="POST">
+                                    <h5><div class="checkboxes">
+                                    <input type="radio" name="recipe_tag" value="Chinese"/>Chinese
+                                    <input type="radio" name="recipe_tag" value="Italian"/>Italian
+                                    <input type="radio" name="recipe_tag" value="German"/>German<br>
+                                    <input type="radio" name="recipe_tag" value="Indian"/>Indian
+                                    <input type="radio" name="recipe_tag" value="Japanese"/>Japanese
+                                    <input type="radio" name="recipe_tag" value="Russian"/>Russian<br>
+                                    <input type="radio" name="recipe_tag" value="Thai"/>Thai
+                                    <input type="radio" name="recipe_tag" value="Filipino"/>Filipino
+                                    <input type="radio" name="recipe_tag" value="Greek"/>Greek<br>
+                                    <input type="radio" name="recipe_tag" value="Mexican"/>Mexican
+                                    <input type="radio" name="recipe_tag" value="Spanish"/>Spanish
+                                    <input type="radio" name="recipe_tag" value="Low Carb">Low Carb<br>
+                                    <input type="radio" name="recipe_tag" value="Whole30"/>Whole30
+                                    <input type="radio" name="recipe_tag" value="Low Calorie"/>Low Calorie
+                                    <input type="radio" name="recipe_tag" value="Low Cholesterol">Low Cholesterol<br>
+                                    <input type="radio" name="recipe_tag" value="Low Sodium"/>Low Sodium
+                                    <input type="radio" name="recipe_tag" value="Diabetic">Diabetic
+                                    <input type="radio" name="recipe_tag" value="Keto"/>Keto<br>
+                                    <input type="radio" name="recipe_tag" value="Gluten-Free">Gluten-Free
+                                    <input type="radio" name="recipe_tag" value="Low Fat">Low Fat
+                                    <input type="radio" name="recipe_tag" value="Mediterranean-Diet"/>Mediterranean-Diet<br>
+                                    <input type="radio" name="recipe_tag" value="Salad"/>Salad
+                                    <input type="radio" name="recipe_tag" value="Soup">Soup
+                                    <input type="radio" name="recipe_tag" value="Healthy"/>Healthy<br>
+                                    <input type="radio" name="recipe_tag" value="Easy"/>Easy
+                                    <input type="radio" name="recipe_tag" value="Quick"/>Quick
+                                    <input type="radio" name="recipe_tag" value="Breakfast"/>Breakfast<br>
+                                    <input type="radio" name="recipe_tag" value="Appetizer"/>Appetizer
+                                    <input type="radio" name="recipe_tag" value="Dinner"/>Dinner
+                                    <input type="radio" name="recipe_tag" value="Dessert"/>Dessert
+                                    </div>
+                                <br>
+                                <label for="inc_ingr">Or select an ingredient you want:</label>
+                                <select name="inc_ingr" id="inc_ingr">
+                                <option name="inc_ingr" value="NULL">-- Select an option --</option>
+                                <option name="inc_ingr" value="Beef">Beef</option>
+                                <option name="inc_ingr" value="Chicken">Chicken</option>
+                                <option name="inc_ingr" value="Turkey">Turkey</option>
+                                <option name="inc_ingr" value="Sausage">Sausage</option>
+                                <option name="inc_ingr" value="Venison">Venison</option>
+                                <option name="inc_ingr" value="Elk">Elk</option>
+                                <option name="inc_ingr" value="Duck">Duck</option>
+                                <option name="inc_ingr" value="Rabbit">Rabbit</option>
+                                <option name="inc_ingr" value="Lamb">Lamb</option>
+                                <option name="inc_ingr" value="Pork">Pork</option>
+                                <option name="inc_ingr" value="Shellfish">Shellfish</option>
+                                <option name="inc_ingr" value="Beans">Beans</option>
+                                <option name="inc_ingr" value="Chocolate">Chocolate</option>
+                                <option name="inc_ingr" value="Dairy">Dairy</option>
+                                <option name="inc_ingr" value="Cheese">Cheese</option>
+                                <option name="inc_ingr" value="Butter">Butter</option>
+                                <option name="inc_ingr" value="Milk">Milk</option>
+                                <option name="inc_ingr" value="Sour Cream">Sour Cream</option>
+                                <option name="inc_ingr" value="Flour">Flour</option>
+                                <option name="inc_ingr" value="Vegetable">Vegetable</option>
+                                <option name="inc_ingr" value="Artichoke">Artichoke</option>
+                                <option name="inc_ingr" value="Asparagus">Asparagus</option>
+                                <option name="inc_ingr" value="Beet">Beet</option>
+                                <option name="inc_ingr" value="Bell Pepper">Bell Pepper</option>
+                                <option name="inc_ingr" value="Bok Choy">Bok Choy</option>
+                                <option name="inc_ingr" value="Broccoli">Broccoli</option>
+                                <option name="inc_ingr" value="Brussels Sprouts">Brussels Sprouts</option>
+                                <option name="inc_ingr" value="Mushroom">Mushroom</option>
+                                <option name="inc_ingr" value="Green Bean">Green Bean</option>
+                                <option name="inc_ingr" value="Corn">Corn</option>
+                                <option name="inc_ingr" value="Eggplant">Eggplant</option>
+                                <option name="inc_ingr" value="Squash">Squash</option>
+                                <option name="inc_ingr" value="Carrot">Carrot</option>
+                                <option name="inc_ingr" value="Cauliflower">Cauliflower</option>
+                                <option name="inc_ingr" value="Sweet Potato">Sweet Potato</option>
+                                <option name="inc_ingr" value="Potato">Potato</option>
+                                <option name="inc_ingr" value="Fruit">Fruit</option>
+                                <option name="inc_ingr" value="Apple">Apple</option>
+                                <option name="inc_ingr" value="Apricot">Apricot</option>
+                                <option name="inc_ingr" value="Avocado">Avocado</option>
+                                <option name="inc_ingr" value="Banana">Banana</option>
+                                <option name="inc_ingr" value="Berry">Berry</option>
+                                <option name="inc_ingr" value="Blueberry">Blueberry</option>
+                                <option name="inc_ingr" value="Cherry">Cherry</option>
+                                <option name="inc_ingr" value="Coconut">Coconut</option>
+                                <option name="inc_ingr" value="Mango">Mango</option>
+                                <option name="inc_ingr" value="Pineapple">Pineapple</option>
+                                <option name="inc_ingr" value="Basil">Basil</option>
+                                <option name="inc_ingr" value="Bay Leaves">Bay Leaves</option>
+                                <option name="inc_ingr" value="Chives">Chives</option>
+                                <option name="inc_ingr" value="Cilantro">Cilantro</option>
+                                <option name="inc_ingr" value="Dill">Dill</option>
+                                <option name="inc_ingr" value="Mint">Mint</option>
+                                <option name="inc_ingr" value="Oregano">Oregano</option>
+                                <option name="inc_ingr" value="Parsley">Parsley</option>
+                                <option name="inc_ingr" value="Rosemary">Rosemary</option>
+                                <option name="inc_ingr" value="Sage">Sage</option>
+                                <option name="inc_ingr" value="Thyme">Thyme</option>
+                                <option name="inc_ingr" value="Mushrooms">Mushrooms</option>
+                                <option name="inc_ingr" value="Nuts">Nuts</option>
+                                <option name="inc_ingr" value="Peanuts">Peanuts</option>
+                                <option name="inc_ingr" value="Peanut Butter">Peanut Butter</option>
+                                <option name="inc_ingr" value="Pecans">Pecans</option>
+                                <option name="inc_ingr" value="Almonds">Almonds</option>
+                                <option name="inc_ingr" value="Flax Seeds">Flax Seeds</option>
+                                <option name="inc_ingr" value="Thyme">Thyme</option>
+                                </select>
+                                <br>
+                                <br>
 
-        <br>
+                                <label for="exc_ingr">Or select an ingredient you don't want:</label>
+                                <select name="exc_ingr" id="exc_ingr">
+                                <option name="exc_ingr" value="NULL">-- Select an option --</option>
+                                <option name="exc_ingr" value="Beef">Beef</option>
+                                <option name="exc_ingr" value="Chicken">Chicken</option>
+                                <option name="exc_ingr" value="Turkey">Turkey</option>
+                                <option name="exc_ingr" value="Sausage">Sausage</option>
+                                <option name="exc_ingr" value="Venison">Venison</option>
+                                <option name="exc_ingr" value="Elk">Elk</option>
+                                <option name="exc_ingr" value="Duck">Duck</option>
+                                <option name="exc_ingr" value="Rabbit">Rabbit</option>
+                                <option name="exc_ingr" value="Lamb">Lamb</option>
+                                <option name="exc_ingr" value="Pork">Pork</option>
+                                <option name="exc_ingr" value="Shellfish">Shellfish</option>
+                                <option name="exc_ingr" value="Beans">Beans</option>
+                                <option name="exc_ingr" value="Chocolate">Chocolate</option>
+                                <option name="exc_ingr" value="Dairy">Dairy</option>
+                                <option name="exc_ingr" value="Cheese">Cheese</option>
+                                <option name="exc_ingr" value="Butter">Butter</option>
+                                <option name="exc_ingr" value="Milk">Milk</option>
+                                <option name="exc_ingr" value="Sour Cream">Sour Cream</option>
+                                <option name="exc_ingr" value="Flour">Flour</option>
+                                <option name="exc_ingr" value="Vegetable">Vegetable</option>
+                                <option name="exc_ingr" value="Artichoke">Artichoke</option>
+                                <option name="exc_ingr" value="Asparagus">Asparagus</option>
+                                <option name="exc_ingr" value="Beet">Beet</option>
+                                <option name="exc_ingr" value="Bell Pepper">Bell Pepper</option>
+                                <option name="exc_ingr" value="Bok Choy">Bok Choy</option>
+                                <option name="exc_ingr" value="Broccoli">Broccoli</option>
+                                <option name="exc_ingr" value="Brussels Sprouts">Brussels Sprouts</option>
+                                <option name="exc_ingr" value="Mushroom">Mushroom</option>
+                                <option name="exc_ingr" value="Green Bean">Green Bean</option>
+                                <option name="exc_ingr" value="Corn">Corn</option>
+                                <option name="exc_ingr" value="Eggplant">Eggplant</option>
+                                <option name="exc_ingr" value="Squash">Squash</option>
+                                <option name="exc_ingr" value="Carrot">Carrot</option>
+                                <option name="exc_ingr" value="Cauliflower">Cauliflower</option>
+                                <option name="exc_ingr" value="Sweet Potato">Sweet Potato</option>
+                                <option name="exc_ingr" value="Potato">Potato</option>
+                                <option name="exc_ingr" value="Fruit">Fruit</option>
+                                <option name="exc_ingr" value="Apple">Apple</option>
+                                <option name="exc_ingr" value="Apricot">Apricot</option>
+                                <option name="exc_ingr" value="Avocado">Avocado</option>
+                                <option name="exc_ingr" value="Banana">Banana</option>
+                                <option name="exc_ingr" value="Berry">Berry</option>
+                                <option name="exc_ingr" value="Blueberry">Blueberry</option>
+                                <option name="exc_ingr" value="Cherry">Cherry</option>
+                                <option name="exc_ingr" value="Coconut">Coconut</option>
+                                <option name="exc_ingr" value="Mango">Mango</option>
+                                <option name="exc_ingr" value="Pineapple">Pineapple</option>
+                                <option name="exc_ingr" value="Basil">Basil</option>
+                                <option name="exc_ingr" value="Bay Leaves">Bay Leaves</option>
+                                <option name="exc_ingr" value="Chives">Chives</option>
+                                <option name="exc_ingr" value="Cilantro">Cilantro</option>
+                                <option name="exc_ingr" value="Dill">Dill</option>
+                                <option name="exc_ingr" value="Mint">Mint</option>
+                                <option name="exc_ingr" value="Oregano">Oregano</option>
+                                <option name="exc_ingr" value="Parsley">Parsley</option>
+                                <option name="exc_ingr" value="Rosemary">Rosemary</option>
+                                <option name="exc_ingr" value="Sage">Sage</option>
+                                <option name="exc_ingr" value="Thyme">Thyme</option>
+                                <option name="exc_ingr" value="Mushrooms">Mushrooms</option>
+                                <option name="exc_ingr" value="Nuts">Nuts</option>
+                                <option name="exc_ingr" value="Peanuts">Peanuts</option>
+                                <option name="exc_ingr" value="Peanut Butter">Peanut Butter</option>
+                                <option name="exc_ingr" value="Pecans">Pecans</option>
+                                <option name="exc_ingr" value="Almonds">Almonds</option>
+                                <option name="exc_ingr" value="Flax Seeds">Flax Seeds</option>
+                                <option name="exc_ingr" value="Thyme">Thyme</option>
+                                </select>
 
+                                <br>
+                                <br>
+                                <input type = "submit" value = "Submit" /></h5>
+                                </form>
+						</div>
+						<div class="image">
+							<img src="{{url_for('static', filename='FindRest/images/2016_06_23_7030_1466680713._large.jpg')}}" alt="" />
+						</div>
+					</section>
+			</div>
 
+		<!-- Scripts -->
+			<script src="static/FindRest/js/jquery.min.js"></script>
+			<script src="static/FindRest/js/jquery.scrollex.min.js"></script>
+			<script src="static/FindRest/js/jquery.scrolly.min.js"></script>
+			<script src="static/FindRest/js/browser.min.js"></script>
+			<script src="static/FindRest/js/breakpoints.min.js"></script>
+			<script src="static/FindRest/js/util.js"></script>
+			<script src="static/FindRest/js/main.js"></script>
+
+<!--	</body>-->
+
+<!--        <h1>Welcome to Recipe Finder!</h1>-->
+<!--        <h3>Choose your tag below to get started</h3>-->
+
+<!--        <form action = "{{ url_for('get_recipes') }}" method="POST">-->
+<!--        <h2><div class="checkboxes">-->
+<!--        <input type="radio" name="recipe_tag" value="Chinese"/>Chinese-->
+<!--        <input type="radio" name="recipe_tag" value="Italian"/>Italian-->
+<!--         <input type="radio" name="recipe_tag" value="German"/>German<br>-->
+<!--        <input type="radio" name="recipe_tag" value="Indian"/>Indian-->
+<!--                    <input type="radio" name="recipe_tag" value="Japanese"/>Japanese-->
+<!--         <input type="radio" name="recipe_tag" value="Russian"/>Russian-->
+<!--            <input type="radio" name="recipe_tag" value="Thai"/>Thai<br>-->
+<!--                    <input type="radio" name="recipe_tag" value="Filipino"/>Filipino-->
+<!--         <input type="radio" name="recipe_tag" value="Greek"/>Greek-->
+<!--            <input type="radio" name="recipe_tag" value="Mexican"/>Mexican-->
+<!--                    <input type="radio" name="recipe_tag" value="Spanish"/>Spanish<br>-->
+<!--            <input type="radio" name="recipe_tag" value="Low Carb">Low Carb-->
+<!--        <input type="radio" name="recipe_tag" value="Whole30"/>Whole30-->
+<!--        <input type="radio" name="recipe_tag" value="Low Calorie"/>Low Calorie<br>-->
+<!-- <input type="radio" name="recipe_tag" value="Low Cholesterol">Low Cholesterol-->
+<!--        <input type="radio" name="recipe_tag" value="Low Sodium"/>Low Sodium-->
+<!--     <input type="radio" name="recipe_tag" value="Diabetic">Diabetic-->
+<!--        <input type="radio" name="recipe_tag" value="Keto"/>Keto<br>-->
+<!--                 <input type="radio" name="recipe_tag" value="Gluten-Free">Gluten-Free-->
+<!--             <input type="radio" name="recipe_tag" value="Low Fat">Low Fat-->
+<!--        <input type="radio" name="recipe_tag" value="Mediterranean-Diet"/>Mediterranean-Diet<br>-->
+<!--            <input type="radio" name="recipe_tag" value="Salad"/>Salad-->
+<!--            <input type="radio" name="recipe_tag" value="Soup">Soup-->
+<!--        <input type="radio" name="recipe_tag" value="Healthy"/>Healthy-->
+<!--            <input type="radio" name="recipe_tag" value="Easy"/>Easy-->
+<!--        <input type="radio" name="recipe_tag" value="Quick"/>Quick<br>-->
+<!--            <input type="radio" name="recipe_tag" value="Breakfast"/>Breakfast-->
+<!--            <input type="radio" name="recipe_tag" value="Appetizer"/>Appetizer-->
+<!--        <input type="radio" name="recipe_tag" value="Dinner"/>Dinner-->
+<!--        <input type="radio" name="recipe_tag" value="Dessert"/>Dessert-->
+<!--        </div>-->
+<!--<br>-->
+<!--            <label for="inc_ingr">Or select an ingredient you want:</label>-->
+<!--  <select name="inc_ingr" id="inc_ingr">-->
+<!--    <option name="inc_ingr" value="NULL">&#45;&#45; Select an option &#45;&#45;</option>-->
+<!--    <option name="inc_ingr" value="Beef">Beef</option>-->
+<!--    <option name="inc_ingr" value="Chicken">Chicken</option>-->
+<!--              <option name="inc_ingr" value="Turkey">Turkey</option>-->
+<!--              <option name="inc_ingr" value="Sausage">Sausage</option>-->
+<!--        <option name="inc_ingr" value="Venison">Venison</option>-->
+<!--    <option name="inc_ingr" value="Elk">Elk</option>-->
+<!--    <option name="inc_ingr" value="Duck">Duck</option>-->
+<!--    <option name="inc_ingr" value="Rabbit">Rabbit</option>-->
+<!--         <option name="inc_ingr" value="Lamb">Lamb</option>-->
+<!--               <option name="inc_ingr" value="Pork">Pork</option>-->
+<!--                    <option name="inc_ingr" value="Shellfish">Shellfish</option>-->
+<!--          <option name="inc_ingr" value="Beans">Beans</option>-->
+<!--      <option name="inc_ingr" value="Chocolate">Chocolate</option>-->
+<!--          <option name="inc_ingr" value="Dairy">Dairy</option>-->
+<!--      <option name="inc_ingr" value="Cheese">Cheese</option>-->
+<!--    <option name="inc_ingr" value="Butter">Butter</option>-->
+<!--    <option name="inc_ingr" value="Milk">Milk</option>-->
+<!--      <option name="inc_ingr" value="Sour Cream">Sour Cream</option>-->
+<!--    <option name="inc_ingr" value="Flour">Flour</option>-->
+<!--      <option name="inc_ingr" value="Vegetable">Vegetable</option>-->
+<!--      <option name="inc_ingr" value="Artichoke">Artichoke</option>-->
+<!--          <option name="inc_ingr" value="Asparagus">Asparagus</option>-->
+<!--      <option name="inc_ingr" value="Beet">Beet</option>-->
+<!--    <option name="inc_ingr" value="Bell Pepper">Bell Pepper</option>-->
+<!--    <option name="inc_ingr" value="Bok Choy">Bok Choy</option>-->
+<!--      <option name="inc_ingr" value="Broccoli">Broccoli</option>-->
+<!--         <option name="inc_ingr" value="Brussels Sprouts">Brussels Sprouts</option>-->
+<!--      <option name="inc_ingr" value="Mushroom">Mushroom</option>-->
+<!--          <option name="inc_ingr" value="Green Bean">Green Bean</option>-->
+<!--      <option name="inc_ingr" value="Corn">Corn</option>-->
+<!--    <option name="inc_ingr" value="Eggplant">Eggplant</option>-->
+<!--    <option name="inc_ingr" value="Squash">Squash</option>-->
+<!--      <option name="inc_ingr" value="Carrot">Carrot</option>-->
+<!--    <option name="inc_ingr" value="Cauliflower">Cauliflower</option>-->
+<!--            <option name="inc_ingr" value="Sweet Potato">Sweet Potato</option>-->
+<!--    <option name="inc_ingr" value="Potato">Potato</option>-->
+<!--    <option name="inc_ingr" value="Fruit">Fruit</option>-->
+<!--    <option name="inc_ingr" value="Apple">Apple</option>-->
+<!--          <option name="inc_ingr" value="Apricot">Apricot</option>-->
+<!--    <option name="inc_ingr" value="Avocado">Avocado</option>-->
+<!--    <option name="inc_ingr" value="Banana">Banana</option>-->
+<!--    <option name="inc_ingr" value="Berry">Berry</option>-->
+<!--          <option name="inc_ingr" value="Blueberry">Blueberry</option>-->
+<!--    <option name="inc_ingr" value="Cherry">Cherry</option>-->
+<!--    <option name="inc_ingr" value="Coconut">Coconut</option>-->
+<!--    <option name="inc_ingr" value="Mango">Mango</option>-->
+<!--      <option name="inc_ingr" value="Pineapple">Pineapple</option>-->
+<!--    <option name="inc_ingr" value="Basil">Basil</option>-->
+<!--    <option name="inc_ingr" value="Bay Leaves">Bay Leaves</option>-->
+<!--          <option name="inc_ingr" value="Chives">Chives</option>-->
+<!--    <option name="inc_ingr" value="Cilantro">Cilantro</option>-->
+<!--    <option name="inc_ingr" value="Dill">Dill</option>-->
+<!--          <option name="inc_ingr" value="Mint">Mint</option>-->
+<!--    <option name="inc_ingr" value="Oregano">Oregano</option>-->
+<!--    <option name="inc_ingr" value="Parsley">Parsley</option>-->
+<!--    <option name="inc_ingr" value="Rosemary">Rosemary</option>-->
+<!--      <option name="inc_ingr" value="Sage">Sage</option>-->
+<!--    <option name="inc_ingr" value="Thyme">Thyme</option>-->
+<!--    <option name="inc_ingr" value="Mushrooms">Mushrooms</option>-->
+<!--    <option name="inc_ingr" value="Nuts">Nuts</option>-->
+<!--                <option name="inc_ingr" value="Peanuts">Peanuts</option>-->
+<!--    <option name="inc_ingr" value="Peanut Butter">Peanut Butter</option>-->
+<!--    <option name="inc_ingr" value="Pecans">Pecans</option>-->
+<!--    <option name="inc_ingr" value="Almonds">Almonds</option>-->
+<!--      <option name="inc_ingr" value="Flax Seeds">Flax Seeds</option>-->
+<!--    <option name="inc_ingr" value="Thyme">Thyme</option>-->
+<!--  </select>-->
+<!--            <br>-->
+<!--            <br>-->
+
+<!--                        <label for="exc_ingr">Or select an ingredient you don't want:</label>-->
+<!--  <select name="exc_ingr" id="exc_ingr">-->
+<!--    <option name="exc_ingr" value="NULL">&#45;&#45; Select an option &#45;&#45;</option>-->
+<!--    <option name="exc_ingr" value="Beef">Beef</option>-->
+<!--    <option name="exc_ingr" value="Chicken">Chicken</option>-->
+<!--              <option name="exc_ingr" value="Turkey">Turkey</option>-->
+<!--              <option name="exc_ingr" value="Sausage">Sausage</option>-->
+<!--        <option name="exc_ingr" value="Venison">Venison</option>-->
+<!--    <option name="exc_ingr" value="Elk">Elk</option>-->
+<!--    <option name="exc_ingr" value="Duck">Duck</option>-->
+<!--    <option name="exc_ingr" value="Rabbit">Rabbit</option>-->
+<!--         <option name="exc_ingr" value="Lamb">Lamb</option>-->
+<!--               <option name="exc_ingr" value="Pork">Pork</option>-->
+<!--                    <option name="exc_ingr" value="Shellfish">Shellfish</option>-->
+<!--          <option name="exc_ingr" value="Beans">Beans</option>-->
+<!--      <option name="exc_ingr" value="Chocolate">Chocolate</option>-->
+<!--          <option name="exc_ingr" value="Dairy">Dairy</option>-->
+<!--      <option name="exc_ingr" value="Cheese">Cheese</option>-->
+<!--    <option name="exc_ingr" value="Butter">Butter</option>-->
+<!--    <option name="exc_ingr" value="Milk">Milk</option>-->
+<!--      <option name="exc_ingr" value="Sour Cream">Sour Cream</option>-->
+<!--    <option name="exc_ingr" value="Flour">Flour</option>-->
+<!--      <option name="exc_ingr" value="Vegetable">Vegetable</option>-->
+<!--      <option name="exc_ingr" value="Artichoke">Artichoke</option>-->
+<!--          <option name="exc_ingr" value="Asparagus">Asparagus</option>-->
+<!--      <option name="exc_ingr" value="Beet">Beet</option>-->
+<!--    <option name="exc_ingr" value="Bell Pepper">Bell Pepper</option>-->
+<!--    <option name="exc_ingr" value="Bok Choy">Bok Choy</option>-->
+<!--      <option name="exc_ingr" value="Broccoli">Broccoli</option>-->
+<!--         <option name="exc_ingr" value="Brussels Sprouts">Brussels Sprouts</option>-->
+<!--      <option name="exc_ingr" value="Mushroom">Mushroom</option>-->
+<!--          <option name="exc_ingr" value="Green Bean">Green Bean</option>-->
+<!--      <option name="exc_ingr" value="Corn">Corn</option>-->
+<!--    <option name="exc_ingr" value="Eggplant">Eggplant</option>-->
+<!--    <option name="exc_ingr" value="Squash">Squash</option>-->
+<!--      <option name="exc_ingr" value="Carrot">Carrot</option>-->
+<!--    <option name="exc_ingr" value="Cauliflower">Cauliflower</option>-->
+<!--            <option name="exc_ingr" value="Sweet Potato">Sweet Potato</option>-->
+<!--    <option name="exc_ingr" value="Potato">Potato</option>-->
+<!--    <option name="exc_ingr" value="Fruit">Fruit</option>-->
+<!--    <option name="exc_ingr" value="Apple">Apple</option>-->
+<!--          <option name="exc_ingr" value="Apricot">Apricot</option>-->
+<!--    <option name="exc_ingr" value="Avocado">Avocado</option>-->
+<!--    <option name="exc_ingr" value="Banana">Banana</option>-->
+<!--    <option name="exc_ingr" value="Berry">Berry</option>-->
+<!--          <option name="exc_ingr" value="Blueberry">Blueberry</option>-->
+<!--    <option name="exc_ingr" value="Cherry">Cherry</option>-->
+<!--    <option name="exc_ingr" value="Coconut">Coconut</option>-->
+<!--    <option name="exc_ingr" value="Mango">Mango</option>-->
+<!--      <option name="exc_ingr" value="Pineapple">Pineapple</option>-->
+<!--    <option name="exc_ingr" value="Basil">Basil</option>-->
+<!--    <option name="exc_ingr" value="Bay Leaves">Bay Leaves</option>-->
+<!--          <option name="exc_ingr" value="Chives">Chives</option>-->
+<!--    <option name="exc_ingr" value="Cilantro">Cilantro</option>-->
+<!--    <option name="exc_ingr" value="Dill">Dill</option>-->
+<!--          <option name="exc_ingr" value="Mint">Mint</option>-->
+<!--    <option name="exc_ingr" value="Oregano">Oregano</option>-->
+<!--    <option name="exc_ingr" value="Parsley">Parsley</option>-->
+<!--    <option name="exc_ingr" value="Rosemary">Rosemary</option>-->
+<!--      <option name="exc_ingr" value="Sage">Sage</option>-->
+<!--    <option name="exc_ingr" value="Thyme">Thyme</option>-->
+<!--    <option name="exc_ingr" value="Mushrooms">Mushrooms</option>-->
+<!--    <option name="exc_ingr" value="Nuts">Nuts</option>-->
+<!--                <option name="exc_ingr" value="Peanuts">Peanuts</option>-->
+<!--    <option name="exc_ingr" value="Peanut Butter">Peanut Butter</option>-->
+<!--    <option name="exc_ingr" value="Pecans">Pecans</option>-->
+<!--    <option name="exc_ingr" value="Almonds">Almonds</option>-->
+<!--      <option name="exc_ingr" value="Flax Seeds">Flax Seeds</option>-->
+<!--    <option name="exc_ingr" value="Thyme">Thyme</option>-->
+<!--  </select>-->
+
+<!--            <br>-->
+<!--            <br>-->
+<!--            <input type = "submit" value = "Submit" /></h2>-->
+<!--      </form>-->
+
+<!--        <br>-->
 
    </body>
+</body>
 </html>
