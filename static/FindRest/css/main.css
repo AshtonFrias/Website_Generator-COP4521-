@@ -2373,7 +2373,7 @@ input, select, textarea {
 	textarea {
 		padding: 0.75rem 1rem;
 	}
-
+/*
 	input[type="checkbox"],
 	input[type="radio"] {
 
@@ -2436,7 +2436,7 @@ input, select, textarea {
 	input[type="checkbox"] + label:before {
 		border-radius: 4px;
 	}
-
+*/
 	input[type="radio"] + label:before {
 		border-radius: 100%;
 	}
@@ -2492,7 +2492,7 @@ input, select, textarea {
 			color: #000000;
 			background: #ffffff;
 		}
-
+/*
 	input[type="checkbox"] + label,
 	input[type="radio"] + label {
 		color: #000000;
@@ -2515,7 +2515,7 @@ input, select, textarea {
 		border-color: #47D3E5;
 		box-shadow: 0 0 0 1px #47D3E5;
 	}
-
+*/
 	::-webkit-input-placeholder {
 		color: rgba(0, 0, 0, 0.75) !important;
 	}
@@ -2909,7 +2909,10 @@ input, select, textarea {
 	}
 
 /* Table */
+.checky input{
+margin: 5px 10px 10px 10px;
 
+}
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
 		margin: 0 0 2rem 0;
