@@ -24,7 +24,7 @@ pip3 install recipe-scrapers
 
 **List of Python Libraries being used:** Flask (Use: web development), Requests (Use: helps us get web addresses), Beautiful Soup 4 (Use: helps us scrape the recipe URLS from the search results), Recipe-Scrapers (Use: scrapes information about a recipe from a URL), Smtplib (Use: Allows us to send emails), Email Message (Use: Creates an email container, which makes formatting an email easier), lxml (Use: used as the Beautiful Soup parser to try to reduce loading times), and cchardet (Use: used to try to reduce loading times).
 
-**Other Resources:** We used our scrapers on Yelp (https://www.yelp.com/) to find restaurants and AllRecipes (https://www.allrecipes.com/) to find recipes. All images of recipes are from AllRecipes.
+**Other Resources:** Ashton used web scrapers on Yelp (https://www.yelp.com/) to find restaurants and Jordan used AllRecipes (https://www.allrecipes.com/) to find recipes. All images of recipes are from AllRecipes. Colin used the 'Telephasic' and 'Story' HTML templates from https://html5up.net/.
 
 **Separation of Work:** 
 - Jordan Locke: Created the search for recipes page, recipe results page, save/delete feature for the recipes, table to hold the recipe results, table to hold the saved recipes, and the initial setup. Also met multiple times with the group throughout the semester.
