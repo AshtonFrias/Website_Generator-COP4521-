@@ -133,31 +133,32 @@ h2{
     <body>
     <h2>Saved Recipes</h2>
     <div class="table-wrapper">
-        <table class="fl-table">
-             <thead>
-             <th></th>
-                <th>Recipe Name</th>
-                <th>Time</th>
-                <th>Yields</th>
-                <th>Ingredients</th>
-                <th>Instructions</th>
-                <th>URL</th>
-             <th></th>
+        <table border = 1 align="center">
+         <thead>
+         <th></th>
+            <th>Recipe Name</th>
+            <th>Time</th>
+            <th>Yields</th>
+            <th>Ingredients</th>
+            <th>Instructions</th>
+            <th>URL</th>
+         <th></th>
 
-             </thead>
-                      {% for row in revRows %}
-                <tr>
-                    <th><img src={{row["Image"]}} alt="Recipe Image" style="width:70px;height:80px;"></th>
-                   <td>{{row["RecipeName"]}}</td>
-                   <td>{{row["Time"]}}</td>
-                   <td>{{row["Yields"]}}</td>
-                   <td>{{row["Ingredients"]}}</td>
-                   <td>{{row["Instructions"]}}</td>
-                   <td><a href={{row["URL"]}}>Go to Recipe!</a></td>
-                   <td><a href='/delete_recipe/{{row["RecipeName"]}}'>Delete Recipe</a></td>
-                </tr>
-             {% endfor %}
-            </table>
+         </thead>
+         {% for row in revRows %}
+            <tr>
+                <th><img src={{row["Image"]}} alt="Recipe Image" style="width:70px;height:80px;"></th>
+               <td>{{row["RecipeName"]}}</td>
+               <td>{{row["Time"]}}</td>
+               <td>{{row["Yields"]}}</td>
+               <td>{{row["Ingredients"]}}</td>
+               <td>{{row["Instructions"]}}</td>
+               <td><a href={{row["URL"]}}>Go to Recipe!</a></td>
+               <td><a href='/save_recipe/{{row["RecipeName"]}}'>Save Recipe</a></td>
+            </tr>
+         {% endfor %}
+
+      </table>
         </div>
 
             <h2><a href = "/">Return Home</a></h2>
