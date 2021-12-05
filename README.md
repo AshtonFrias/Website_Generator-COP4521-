@@ -31,3 +31,6 @@ pip3 install recipe-scrapers
 - Ashton Frias: Created the email feature, search for restaurants page, table to hold the restaurant results, and restaurant results page. Also met multiple times with the group throughout the semester.
 - Colin Houde: Improved the UI for all of the web pages and met multiple times with the group throughout the semester.
 - Addison Nugent: 
+
+**Link to our video presentation:** https://www.youtube.com/watch?v=fDZ4fGZ6UwI&t=630s (In the video, each of us present our own work. Note that Ashton and Jordan recorded their videos before Colin implemented his HTML improvements. This is why those parts of the video look different from the final product.)
+
